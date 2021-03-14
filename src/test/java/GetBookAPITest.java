@@ -25,9 +25,10 @@ public class GetBookAPITest extends BaseTest{
 
     @Test
     public void verifyGetBookByAuthor() {
-        String response = getBookByAuthor("Sind");
-        System.out.println(response);
-        //BookResponse[] getBooks = response
+        BookResponse[] getBooks = getBookByAuthor("Pai");
+        Assert.assertEquals(getBooks.length, 7);
+        for (BookResponse book : getBooks)
+            System.out.println(book.getBookName());
 
         //Assert.assertEquals(response.asString(),"[{\"book_name\":\"test mine\",\"isbn\":\"test\",\"aisle\":\"2910\",\"author\":\"\"}]");
     }

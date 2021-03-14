@@ -1,5 +1,6 @@
 import RequestModels.AddBookRequest;
 import RequestModels.DeleteBookRequest;
+import ResponseModels.BookResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeTest;
@@ -39,14 +40,16 @@ public class BaseTest {
 
         return (response.asString());
     }
-    public String getBookByAuthor(String author) {
+    public BookResponse[] getBookByAuthor(String author) {
         Response response = given().queryParams("AuthorName", author)
                 .header("Content-Type", "application/json")
                 .when().get("/Library/GetBook.php")
                 .then()
                 .extract().response();
 
-        return (response.asString());
+        BookResponse[] books = response.as(BookResponse[].class);
+        return books;
+
     }
 
     public String deleteByID(String bookId) {
